@@ -19,7 +19,7 @@ The app expects the following parameters. These can be given as command line par
 | --oklimit    | TRXPARSER_OKLIMIT    | Minimum percentage as Int for a test to be marked as OK      |
 | --webhook    | TRXPARSER_WEBHOOK    | WebHook URL from the Teams channel                           |
 | --deltrx     | TRXPARSER_DELTRX     | Set (cmd) or true (env) if the TRX files should be deleted when the result is send to Teams |
-| --debug      | TRXPARSER_DEBUG      | Set (cmd) or true (env) will display debug informations into the console |
+| --debug      | TRXPARSER_DEBUG      | Set (cmd) or true (env) will display debug information into the console |
 
 ## Design of the application
 
@@ -30,7 +30,7 @@ Therefore the icons are also defined as Base64. But the templates are also locat
 
 ### Implementation of the start parameters
 
-To simple hande the start parameters for a console app you will need the Dragon Fruit package. You can install this prerelease feature with the nuget console.
+To simple handle the start parameters for a console app you will need the Dragon Fruit package. You can install this prerelease feature with the Nuget console.
 
 ```nuget
 Install-Package System.CommandLine.DragonFruit -Version 0.3.0-alpha.19577.1
