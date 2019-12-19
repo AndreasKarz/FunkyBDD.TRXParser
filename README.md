@@ -43,8 +43,10 @@ ATTENTION: Dragon Fruit will not work with namespaces they have `.` inside! You 
 To build a single file app, publish the solution with the command below. 
 
 ```powershell
-dotnet publish -r win-x64 -c Release /p:PublishSingleFile=true
+dotnet publish -r win-x64 -c Release -o "c:\temp" /p:PublishSingleFile=true
 ```
 
-Since all required resources are stored in the project, no images or templates are needed. The app works self-contained. You will find more information in the [DotNet Core tutorials](https://dotnetcoretutorials.com/2019/06/20/publishing-a-single-exe-file-in-net-core-3-0/).
+Since all required resources are stored in the project, no images or templates are needed. The app works self-contained. You will find more information in the [DotNet Core tutorials](https://dotnetcoretutorials.com/2019/06/20/publishing-a-single-exe-file-in-net-core-3-0/). 
+
+For more arguments read this [documentation](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-publish?tabs=netcore21#arguments).
 

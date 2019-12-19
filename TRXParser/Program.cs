@@ -26,7 +26,7 @@ namespace TRXParser
         /// <param name="resulturl">URL to the test result page</param>
         /// <param name="searchpath">File path with the TRX files</param>
         /// <param name="deltrx">Set if TRX files should deleted after parsing</param>
-        /// <param name="oklimit">What is the percentage above which a test is considered accepted?</param>
+        /// <param name="oklimit">The percentage above which a test is considered accepted?</param>
         /// <param name="debug">Set true to write debug infos inside the console</param>
         static int Main
         (
@@ -51,27 +51,27 @@ namespace TRXParser
                 var _resulturl = new Uri(
                     resulturl
                     ?? Environment.GetEnvironmentVariable("TRXPARSER_RESULTURL")
-                    ?? throw new Exception("URL to the test result page is not set!")
+                    ?? throw new Exception("\n=>URL to the test result page is not set!\n")
                 );
 
                 var _repourl = new Uri(
                     repourl
                     ?? Environment.GetEnvironmentVariable("TRXPARSER_REPOURL")
-                    ?? throw new Exception("URL to code repo not set!")
+                    ?? throw new Exception("\n=>URL to code repo not set!\n")
                 );
 
                 var _webhook = new Uri(
                     webhook
                     ?? Environment.GetEnvironmentVariable("TRXPARSER_WEBHOOK")
-                    ?? throw new Exception("URL to the WebHook not set!")
+                    ?? throw new Exception("\n=>URL to the WebHook not set!\n")
                 );
 
                 var _searchpath = searchpath
                     ?? Environment.GetEnvironmentVariable("TRXPARSER_SEARCHPATH")
-                    ?? throw new Exception("Search path for TRX files not set!");
+                    ?? throw new Exception("\n=>Search path for TRX files not set!\n");
                 if (!Directory.Exists(_searchpath))
                 {
-                    throw new Exception($"TRX path {_searchpath} not exists on this machine!");
+                    throw new Exception($"\n=>TRX path {_searchpath} not exists on this machine!\n");
                 }
 
                 var _deltrx = deltrx
@@ -97,7 +97,8 @@ namespace TRXParser
             }
 
             var byteArray = Resources.MessageBody;
-            var _messageBody = new StringBuilder(Encoding.UTF8.GetString(byteArray, 3, byteArray.Length - 3));
+            var _messageBody = new StringBuilder(
+                Encoding.UTF8.GetString(byteArray, 3, byteArray.Length - 3));
 
             #region Prepare table
                 ResultTable = new DataTable();
@@ -107,7 +108,8 @@ namespace TRXParser
             #endregion
 
             #region crawl all TRX files inside _searchpath
-                string[] fileList = Directory.GetFiles(_searchpath, "*.trx", SearchOption.AllDirectories);
+                string[] fileList = Directory.GetFiles(_searchpath, "*.trx", 
+                    SearchOption.AllDirectories);
                 if (_debug) 
                 {
                     Console.WriteLine($"{fileList.Length} TRX files found in {_searchpath}");
@@ -146,14 +148,18 @@ namespace TRXParser
 
                 if (percentage < _oklimit)
                 {
-                    _messageBody.Replace("{status}", "Testset **fails**");
-                    _messageBody.Replace("{subtitle}", $"Testset **fails** with **{percentage}%** passed test");
+                    _messageBody.Replace("{status}", 
+                        "Testset **fails**");
+                    _messageBody.Replace("{subtitle}", 
+                        $"Testset **fails** with **{percentage}%** passed test");
                     _messageBody.Replace("{icon}", NOK);
                 }
                 else
                 {
-                    _messageBody.Replace("{status}", "Testset **passed**");
-                    _messageBody.Replace("{subtitle}", $"Testset **passed** with **{percentage}%** passed test");
+                    _messageBody.Replace("{status}", 
+                        "Testset **passed**");
+                    _messageBody.Replace("{subtitle}", 
+                        $"Testset **passed** with **{percentage}%** passed test");
                     _messageBody.Replace("{icon}", OK);
                 }
 
@@ -163,7 +169,8 @@ namespace TRXParser
                 }
                 else
                 {
-                    _messageBody.Replace("{activity}", $"Please check the following tests:\n\r{errorListMarkdownString}");
+                    _messageBody.Replace("{activity}", 
+                        $"Please check the following tests:\n\r{errorListMarkdownString}");
                 }
             #endregion
 
@@ -180,8 +187,10 @@ namespace TRXParser
                         RequestUri = _webhook,
                         Method = HttpMethod.Post,
                     };
-                    request.Content = new ByteArrayContent(Encoding.UTF8.GetBytes(_messageBody.ToString()));
-                    request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                    request.Content = new ByteArrayContent(
+                        Encoding.UTF8.GetBytes(_messageBody.ToString()));
+                    request.Content.Headers.ContentType = 
+                        new MediaTypeHeaderValue("application/json");
                     HttpResponseMessage result = client.SendAsync(request).Result;
                     result.EnsureSuccessStatusCode();
                 }
@@ -190,7 +199,8 @@ namespace TRXParser
             #region Delete all TRX files when all is done and _deltrx is set
                 if (_deltrx)
                 {
-                    foreach (var file in Directory.GetFiles(_searchpath, "*.trx", SearchOption.AllDirectories))
+                    foreach (var file in Directory.GetFiles(
+                        _searchpath, "*.trx", SearchOption.AllDirectories))
                     {
                             File.Delete(file);
                     }
