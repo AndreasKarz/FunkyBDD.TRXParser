@@ -1,0 +1,27 @@
+﻿{
+  "title": "{date} - {title}",
+  "text": "{status}",
+  "sections": [
+    {
+      "activityTitle": "{status}",
+      "activitySubtitle": "{subtitle}",
+      "activityText": "{activity}",
+      "activityImage": "{icon}"
+    },
+    {
+      "type": "TextBlock",
+      "text": "[Show test result]({resulturl})  |  [Show code]({repourl})",
+      "weight": "bolder",
+      "size": "medium"
+    },
+    {
+      "title": "Details",
+      "facts": [
+        {
+          "name": "Test summary",
+          "value": "```{total} executed```   **|**   ```{passed} passed```   **|**   ```{failed} failed```"
+        }
+      ]
+    }
+  ]
+}

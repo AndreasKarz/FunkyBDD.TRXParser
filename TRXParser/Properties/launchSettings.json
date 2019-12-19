@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TRXParser": {
+      "commandName": "Project",
+      "commandLineArgs": "--title \"TRX Parser Test\" --repourl \"https://github.com/AndreasKarz/FunkyBDD.TRXParser\" --buildurl \"https://github.com/AndreasKarz/FunkyBDD.TRXParser/network/alerts\" --resulturl \"https://github.com/AndreasKarz/FunkyBDD.TRXParser/pulse\" --searchpath \"c:\\temp\" --oklimit 90 --debug"
+    }
+  }
+}
