@@ -23,7 +23,6 @@ namespace TRXParser
         /// <param name="title">URL to the code repository</param>
         /// <param name="repourl">URL to the code repository</param>
         /// <param name="webhook">URL of the Teams WebHook</param>
-        /// <param name="buildurl">URL to the Azure DevOps Build</param>
         /// <param name="resulturl">URL to the test result page</param>
         /// <param name="searchpath">File path with the TRX files</param>
         /// <param name="deltrx">Set if TRX files should deleted after parsing</param>
@@ -34,7 +33,6 @@ namespace TRXParser
             string title = null,
             string repourl = null,
             string webhook = null,
-            string buildurl = null,
             string resulturl = null,
             string searchpath = null,
             bool deltrx = false,
@@ -68,12 +66,6 @@ namespace TRXParser
                     ?? throw new Exception("URL to the WebHook not set!")
                 );
 
-                var _buildurl = new Uri(
-                    buildurl
-                    ?? Environment.GetEnvironmentVariable("TRXPARSER_BUILDURL")
-                    ?? throw new Exception("URL to the Build not set!")
-                );
-
                 var _searchpath = searchpath
                     ?? Environment.GetEnvironmentVariable("TRXPARSER_SEARCHPATH")
                     ?? throw new Exception("Search path for TRX files not set!");
@@ -99,7 +91,6 @@ namespace TRXParser
                 Console.WriteLine(_repourl);
                 Console.WriteLine(_resulturl);
                 Console.WriteLine(_webhook);
-                Console.WriteLine(_buildurl);
                 Console.WriteLine(_searchpath);
                 Console.WriteLine(_deltrx);
                 Console.WriteLine(_oklimit);
